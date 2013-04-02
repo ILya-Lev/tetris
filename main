@@ -1,0 +1,18 @@
+// tetris.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include <conio.h>
+
+#include "manager.h"
+
+int _tmain()
+{
+  Manager tetr;
+
+	tetr.makeStep();
+
+	_getch();
+	return 0;
+}
