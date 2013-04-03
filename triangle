@@ -4,7 +4,7 @@
 
 class Triangle : public Form{
 public:
-  Triangle(const int row_init, const int column_init, const Field &);
+  	Triangle(const int row_init, const int column_init, const Field &);
 	virtual bool clear(const Field &);
 
 private:
@@ -19,16 +19,18 @@ Triangle::Triangle(const int row_init, const int column_init, const Field &F)
 	orient = 0;
 	x_init = row_init;
 	y_init = column_init;
-	if(clear(F) == false)
-		for(int i=0;i<4;i++)
+	if(clear(F) == false){
+		for(int i = 0; i < 4; i++){
 			x_coord[i] = y_coord[i] = 0;
+		}
+	}
 }
 bool Triangle::clear(const Field &F)
 {
-	if(F.isEmptyCell(x_init, y_init) == false)		return false;
-	if(F.isEmptyCell(x_init+1, y_init-1) == false)	return false;
-	if(F.isEmptyCell(x_init+1, y_init) == false)	return false;
-	if(F.isEmptyCell(x_init+1, y_init+1) == false)	return false;
+	if(!F.isEmptyCell(x_init, y_init) )	return false;
+	if(!F.isEmptyCell(x_init+1, y_init-1) )	return false;
+	if(!F.isEmptyCell(x_init+1, y_init) )	return false;
+	if(!F.isEmptyCell(x_init+1, y_init+1) )	return false;
 
 	orient = 0;
 	x_coord[0] = x_init;
