@@ -35,66 +35,80 @@ protected:
 
 bool Form::isFigure(const int x, const int y) const
 {
-	for(int i=0;i<4;i++)
+	for(int i = 0; i < 4; i++){
 		if(x_coord[i] == x && y_coord[i] == y)
 			return true;
+	}
 	return false;
 }
 bool Form::canMoveForwad(const Field &F, const int num_steps) const
 {
-	for(int i=0;i<4;i++)
-		if(F.isEmptyCell(x_coord[i]+num_steps, y_coord[i]) == false)
+	for(int i = 0; i < 4; i++){
+		if(!F.isEmptyCell(x_coord[i]+num_steps, y_coord[i]))
 			return false;
+	}
 	return true;
 }
 bool Form::canMoveLeft(const Field &F, const int num_steps) const
 {
-	for(int i=0;i<4;i++)
-		if(F.isEmptyCell(x_coord[i], y_coord[i]-num_steps) == false)
+	for(int i = 0; i < 4 ;i++){
+		if(!F.isEmptyCell(x_coord[i], y_coord[i]-num_steps))
 			return false;
+	}
 	return true;
 }
 bool Form::canMoveRight(const Field &F, const int num_steps) const
 {
-	for(int i=0;i<4;i++)
-		if(F.isEmptyCell(x_coord[i], y_coord[i]+num_steps) == false)
+	for(int i = 0; i < 4; i++){
+		if(!F.isEmptyCell(x_coord[i], y_coord[i]+num_steps))
 			return false;
+	}
 	return true;
 }
 
 void Form::moveForward(const int num_steps)
 {
-	for(int i=0;i<4;i++)
+	for(int i = 0; i < 4; i++)
 		x_coord[i] += num_steps;
 }
 void Form::moveLeft(const int num_steps)
 {
-	for(int i=0;i<4;i++)
+	for(int i = 0; i < 4; i++)
 		y_coord[i] -= num_steps;
 }
 void Form::moveRight(const int num_steps)
 {
-	for(int i=0;i<4;i++)
+	for(int i = 0; i < 4; i++)
 		y_coord[i] += num_steps;
 }
 
 void Form::rotLeft()
 {
-	if(orient == 0)			rotLFRT(x_coord, y_coord);
-	else if(orient == 1)	rotLSRS(x_coord, y_coord);
-	else if(orient == 2)	rotLTRF(x_coord, y_coord);
-	else if(orient == 3)	rotLZRZ(x_coord, y_coord);
-
+	switch(orient){
+		case 0: rotLFRT(x_coord, y_coord);
+			break;
+		case 1: rotLSRS(x_coord, y_coord);
+			break;
+		case 2: rotLTRF(x_coord, y_coord);
+			break;
+		case 3: rotLZRZ(x_coord, y_coord);
+			break;
+	}	
 	orient++;
-	orient %= 4;
+	orient %= 4;		//orientation is always from 0 to 3
 }
 void Form::rotRight()
 {
-	if(orient == 0)			rotLTRF(x_coord, y_coord);
-	else if(orient == 1)	rotLSRS(x_coord, y_coord);
-	else if(orient == 2)	rotLFRT(x_coord, y_coord);
-	else if(orient == 3)	rotLZRZ(x_coord, y_coord);
-
+	switch(orient){
+		case 0: rotLTRF(x_coord, y_coord);
+			break;
+		case 1: rotLSRS(x_coord, y_coord);
+			break;
+		case 2: rotLFRT(x_coord, y_coord);
+			break;
+		case 3: rotLZRZ(x_coord, y_coord);
+			break;
+	}	
 	orient++;
 	orient %= 4;
 }
@@ -102,50 +116,65 @@ void Form::rotRight()
 bool Form::canRotRight(const Field &F)
 {
 	int x[4], y[4], i;
-	for(i=0;i<4;i++)
+	for(i = 0; i < 4; i++)
 	{
 		x[i] = x_coord[i];
 		y[i] = y_coord[i];
 	}
 
-	if(orient == 0)			rotLTRF(x, y);
-	else if(orient == 1)	rotLSRS(x, y);
-	else if(orient == 2)	rotLFRT(x, y);
-	else if(orient == 3)	rotLZRZ(x, y);
-
-	for(i=0;i<4;i++)
+	switch(orient){
+		case 0: rotLTRF(x_coord, y_coord);
+			break;
+		case 1: rotLSRS(x_coord, y_coord);
+			break;
+		case 2: rotLFRT(x_coord, y_coord);
+			break;
+		case 3: rotLZRZ(x_coord, y_coord);
+			break;
+	}	
+	for(i = 0; i < 4; i++)
+	{
 		if(F.isEmptyCell(x[i], y[i]) == false)
 			return false;
+	}
 	return true;
 }
 bool Form::canRotLeft(const Field &F)
 {
 	int x[4], y[4], i;
-	for(i=0;i<4;i++)
+	for(i = 0; i < 4; i++)
 	{
 		x[i] = x_coord[i];
 		y[i] = y_coord[i];
 	}
 
-	if(orient == 0)			rotLFRT(x, y);
-	else if(orient == 1)	rotLSRS(x, y);
-	else if(orient == 2)	rotLTRF(x, y);
-	else if(orient == 3)	rotLZRZ(x, y);
+	switch(orient){
+		case 0: rotLFRT(x_coord, y_coord);
+			break;
+		case 1: rotLSRS(x_coord, y_coord);
+			break;
+		case 2: rotLTRF(x_coord, y_coord);
+			break;
+		case 3: rotLZRZ(x_coord, y_coord);
+			break;
+	}	
 
-	for(i=0;i<4;i++)
+	for(i = 0; i < 4; i++)
+	{
 		if(F.isEmptyCell(x[i], y[i]) == false)
 			return false;
+	}
 	return true;
 }
 
 
 int Form::getXcoord(const int num) const
 {
-	assert(num>=0 && num<4);
+	assert(num >= 0 && num < 4);
 	return x_coord[num];
 }
 int Form::getYcoord(const int num) const
 {
-	assert(num>=0 && num<4);
+	assert(num >= 0 && num < 4);
 	return y_coord[num];
 }
