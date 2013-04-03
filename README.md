@@ -8,8 +8,8 @@ file "form.h" contains base abstract class Form, which is used to simulate behav
 file "manager.h" contains class Manager, which simulates the game Tetris. Because this realization is a console application, gameplay is awful, but the main goal was to train in OOD. From this point of view class Manager doesn't have the best realization, but it works :)
 
 class Cube corresponds to figure
-//**
-//**
+**
+**
 class Triangle corresponds to figure
 // * 
 //***
